@@ -28,6 +28,10 @@
 	var/obj/item/bodypart/referenced_bodypart = attached_bodypart.resolve()
 	if(!referenced_bodypart)
 		return ..()
+	// NOVA EDIT ADDITION START - Used for lewd portals, blush expiring breaks it
+	if(!isnull(usr))
+		SEND_SIGNAL(usr, COMSIG_EMOTE_OVERLAY_EXPIRE)
+	// NOVA EDIT ADDITION STOP
 	referenced_bodypart.remove_bodypart_overlay(src)
 	return ..()
 

@@ -13,6 +13,20 @@
 #define COMSIG_HOSTILE_MOB_LOST_TARGET "hostile_mob_lost_target"
 ///When a client is given direct control of a mob via [/datum/admin_verb/cmd_give_direct_control()].
 #define COMSIG_MOB_GIVE_DIRECT_CONTROL "mob_give_direct_control"
+/// From /mob/proc/equip_to_slot_if_possible()
+#define COMSIG_MOB_POST_EQUIP "mob_post_equip"
+/// From /mob/living/carbon/human/verb/toggle_undies()
+#define COMSIG_HUMAN_TOGGLE_UNDERWEAR "human_toggle_undies"
+/// From /obj/item/restraints/handcuffs/proc/apply_cuffs()
+#define COMSIG_MOB_HANDCUFFED "mob_handcuffed"
+/// From /datum/bodypart_overlay/simple/emote/Destroy() - Calls when an emote that applies a temporary visual effect expires
+#define COMSIG_EMOTE_OVERLAY_EXPIRE "emote_overlay_exprie"
+/// From /mob/living/carbon/human/proc/adjust_arousal() - Triggered by status
+#define COMSIG_HUMAN_ADJUST_AROUSAL "human_adjust_arousal"
+/// from /mob/living/carbon/human/verb/toggle_arousal() - Triggered by player toggle
+#define COMSIG_HUMAN_TOGGLE_AROUSAL "human_toggle_arousal"
+/// From /mob/living/carbon/human/verb/toggle_genitals()
+#define COMSIG_HUMAN_TOGGLE_GENITALS "human_toggle_genitals"
 
 //Gun signals
 ///When a gun is switched to automatic fire mode

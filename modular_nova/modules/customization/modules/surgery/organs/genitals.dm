@@ -636,6 +636,7 @@
 		picked_organ.layer_mode = gen_vis_trans[picked_visibility]
 		balloon_alert(src, "set layering to [LOWER_TEXT(picked_visibility)]")
 		update_body()
+		SEND_SIGNAL(src, COMSIG_HUMAN_TOGGLE_GENITALS)
 		return
 
 	picked_organ.visibility_preference = gen_vis_trans[picked_visibility]
@@ -680,3 +681,4 @@
 	picked_organ.update_sprite_suffix()
 	balloon_alert(src, "set to [LOWER_TEXT(picked_arousal)]")
 	update_body()
+	SEND_SIGNAL(src, COMSIG_HUMAN_TOGGLE_AROUSAL)

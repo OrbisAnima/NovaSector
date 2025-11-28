@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 				CRASH("Unimplemented interaction requirement '[requirement]'")
 	return TRUE
 
-/datum/interaction/proc/act(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/interaction/proc/act(mob/living/carbon/human/user, mob/living/carbon/human/target, obj/body_relay = null)
 	if(!allow_act(user, target))
 		return
 	if(!message)
@@ -99,6 +99,8 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 		message_admins("Deprecated message handling for '[name]'. Correct format is a list with one entry. This message will only show once.")
 		message = list(message)
 	var/msg = pick(message)
+	if(!isnull(body_relay))
+		msg = replacetext(msg, "%TARGET%", "\the [body_relay.name]")
 	// We replace %USER% with nothing because manual_emote already prepends it.
 	msg = trim(replacetext(replacetext(msg, "%TARGET%", "[target]"), "%USER%", ""), INTERACTION_MAX_CHAR)
 	msg = replacetext(replacetext(msg, "%TARGET_PRONOUN_THEIR%", target.p_their()), "%TARGET_PRONOUN_THEIRS%", target.p_theirs())
@@ -118,6 +120,8 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 
 	if(user_messages.len)
 		var/user_msg = pick(user_messages)
+		if(!isnull(body_relay))
+			user_msg = replacetext(user_msg, "%TARGET%", "\the [body_relay.name]")
 		user_msg = replacetext(replacetext(user_msg, "%TARGET%", "[target]"), "%USER%", "[user]")
 		user_msg = replacetext(replacetext(user_msg, "%TARGET_PRONOUN_THEIR%", target.p_their()), "%TARGET_PRONOUN_THEIRS%", target.p_theirs())
 		user_msg = replacetext(replacetext(user_msg, "%USER_PRONOUN_THEIR%", user.p_their()), "%USER_PRONOUN_THEIRS%", user.p_theirs())
@@ -127,6 +131,8 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 
 	if(target_messages.len)
 		var/target_msg = pick(target_messages)
+		if(!isnull(body_relay))
+			target_msg = replacetext(target_msg, "%USER%", "Unknown")
 		target_msg = replacetext(replacetext(target_msg, "%TARGET%", "[target]"), "%USER%", "[user]")
 		target_msg = replacetext(replacetext(target_msg, "%TARGET_PRONOUN_THEIR%", target.p_their()), "%TARGET_PRONOUN_THEIRS%", target.p_theirs())
 		target_msg = replacetext(replacetext(target_msg, "%USER_PRONOUN_THEIR%", user.p_their()), "%USER_PRONOUN_THEIRS%", user.p_theirs())
@@ -147,10 +153,10 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 		else
 			playsound(target.loc, sound_cache, 50, sound_vary, max(0, -SOUND_RANGE + sound_range))
 
-	INVOKE_ASYNC(src, PROC_REF(apply_effects), user, target)
+	INVOKE_ASYNC(src, PROC_REF(apply_effects), user, target, body_relay)
 
 /// Applies side effects to the user and/or target of the interaction.
-/datum/interaction/proc/apply_effects(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/interaction/proc/apply_effects(mob/living/carbon/human/user, mob/living/carbon/human/target, obj/body_relay = null)
 	if(user_pain)
 		user.adjust_pain(user_pain)
 	if(target_pain)
@@ -165,6 +171,9 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 		target.adjust_pleasure(target_pleasure)
 	if(target_arousal)
 		target.adjust_arousal(target_arousal)
+	if(body_relay)
+		var/obj/lewd_portal_relay/body_portal_relay = body_relay
+		body_portal_relay.update_visuals()
 
 /datum/interaction/proc/load_from_json(path)
 	var/fpath = path

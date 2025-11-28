@@ -8754,6 +8754,7 @@
 #include "modular_nova\modules\modular_items\lewd_items\code\lewd_items\venom_milker.dm"
 #include "modular_nova\modules\modular_items\lewd_items\code\lewd_items\vibrator.dm"
 #include "modular_nova\modules\modular_items\lewd_items\code\lewd_items\vibroring.dm"
+#include "modular_nova\modules\modular_items\lewd_items\code\lewd_machinery\lewd_portals.dm"
 #include "modular_nova\modules\modular_items\lewd_items\code\lewd_machinery\lustwish.dm"
 #include "modular_nova\modules\modular_items\lewd_items\code\lewd_machinery\milking_machine.dm"
 #include "modular_nova\modules\modular_items\lewd_items\code\lewd_machinery\washing_machine.dm"

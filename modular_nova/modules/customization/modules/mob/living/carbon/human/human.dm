@@ -125,6 +125,7 @@
 			underwear_visibility = UNDERWEAR_HIDE_ALL
 
 	update_body()
+	SEND_SIGNAL(src, COMSIG_HUMAN_TOGGLE_UNDERWEAR, picked_choice)
 
 /mob/living/carbon/human/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
