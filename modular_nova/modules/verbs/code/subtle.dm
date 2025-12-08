@@ -172,7 +172,6 @@
 		var/obj/effect/overlay/holo_pad_hologram/hologram = GLOB.hologram_impersonators[user]
 		if((get_dist(user.loc, target_mob.loc) <= subtler_range) || (hologram && get_dist(hologram.loc, target_mob.loc) <= subtler_range))
 			target_mob.show_message(subtler_message, alt_msg = subtler_message)
-			var/datum/preferences/prefs = target_mob.client?.prefs
 			subtler_sound(target_mob)
 		else
 			to_chat(user, span_warning("Your emote was unable to be sent to your target: Too far away."))
@@ -182,7 +181,6 @@
 			if((running_emote_type & EMOTE_LEWD) && !pref_check_emote(client = hologram.Impersonation.client, preference = /datum/emote/living/lewd::pref_to_check))
 				return FALSE
 			hologram.Impersonation.show_message(subtler_message, alt_msg = subtler_message)
-			var/datum/preferences/prefs = hologram.Impersonation.client?.prefs
 			subtler_sound(hologram.Impersonation)
 	else if(istype(target, /obj/lewd_portal_relay)) //Direct Message to a portal user
 		var/obj/lewd_portal_relay/portal_relay = target
@@ -222,7 +220,6 @@
 			if((running_emote_type & EMOTE_LEWD) && !pref_check_emote(receiver, preference = /datum/emote/living/lewd::pref_to_check))
 				continue
 			receiver.show_message(subtler_message, alt_msg = subtler_message)
-			var/datum/preferences/prefs = receiver.client?.prefs
 			subtler_sound(receiver)
 
 		for(var/obj/lewd_portal_relay/portal in ghostless) //Message portal owners caught in range

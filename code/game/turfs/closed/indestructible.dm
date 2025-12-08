@@ -18,19 +18,6 @@
 /turf/closed/indestructible/singularity_act()
 	return
 
-/turf/closed/indestructible/attackby(obj/item/attacking_item, mob/user, list/modifiers)
-	if(istype(attacking_item, /obj/item/poster) && Adjacent(user))
-		return place_poster(attacking_item, user)
-
-	// NOVA EDIT ADDITION START - Its almost certain that people are going to want to make use of lewd portals on the interlink so they can be placed on reinforced walls
-	if(istype(attacking_item, /obj/item/wallframe/lewd_portal) && Adjacent(user))
-		var/obj/item/wallframe/lewd_portal = attacking_item
-		if(lewd_portal.try_build(src, user))
-			lewd_portal.attach(src, user)
-			return TRUE
-	// NOVA EDIT ADDITION END
-	return ..()
-
 /turf/closed/indestructible/oldshuttle
 	name = "strange shuttle wall"
 	icon = 'icons/turf/shuttleold.dmi'
